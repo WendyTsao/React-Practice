@@ -1,0 +1,81 @@
+html, body
+  overflow-x hidden
+  background-color #282c34
+
+ul
+  list-style-type none
+  padding-inline-start 0
+  margin-block-end 0
+  padding 20px 0 0
+  
+li
+  font-size 1.2rem
+  line-height 1.8
+
+h1
+  text-align center
+  font-size 2.5rem
+  margin 2rem auto
+
+.layout
+  text-align center
+  min-height 100vh
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  font-size calc(10px + 2vmin)
+  color white
+  padding 20px 10px
+  box-sizing border-box
+  
+.logo
+  height 20vmin
+  margin-bottom 20px
+  &:hover
+    animation-play-state paused
+
+.card
+  display flex
+  flex-direction column
+  justify-content space-between
+  margin 10px
+  cursor pointer
+  
+  &:hover
+    .cardActions
+      .button
+        animation slide 1s ease-in-out 2
+
+.cardContent
+  text-align center
+  background-color #3f4a61
+  overflow-wrap break-word
+  color #fff
+  .subTitle
+    max-width 250px
+    font-size 16px
+    letter-spacing 1px
+    margin auto
+
+.cardActions
+  justify-content center
+  background-color #fff
+
+@media (prefers-reduced-motion no-preference)
+  .logo
+    animation App-logo-spin infinite 20s linear
+
+@keyframes App-logo-spin
+  from
+    transform rotate(0deg)
+  to
+    transform rotate(360deg)
+
+@keyframes slide
+  0%
+    transform translateX(0)
+  50%
+    transform translateX(50px)
+  100%
+    transform translateX(0)
