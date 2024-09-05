@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react"
-import { Grid } from "@mui/material"
-import { MdSwipeDown } from "react-icons/md"
+import { Grid2 } from "@mui/material"
+import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent, TimelineOppositeContent } from "@mui/lab"
+import { MdAutorenew, MdSwipeDown } from "react-icons/md"
+import { FaGithubAlt, FaLinkedin } from "react-icons/fa"
 
 import MainCard from "../components/MainCard"
 import '../assets/styles/Resume.styl'
@@ -23,6 +25,13 @@ function Resume() {
   const indexRef = useRef(0)
   const intervalRef = useRef(0)
   const speed = 150
+
+  const replayTyping = () => {
+    clearInterval(intervalRef.current)
+    setCurrentTextIndex(0)
+    setShowText("")
+    intervalRef.current = 0
+  }
 
   useEffect(()=>{
     if (intervalRef.current > 0 || currentTextIndex === texts.length) {
@@ -47,7 +56,7 @@ function Resume() {
   }, [currentTextIndex])
 
   useEffect(()=>{
-    currentTextIndex === texts.length && setShowText(texts[1])
+    currentTextIndex === texts.length && setShowText(texts[5])
   }, [currentTextIndex])
 
   // 技能區塊特效
@@ -97,11 +106,70 @@ function Resume() {
     setDirection(direction)
   }
 
+  // 工作經驗區塊
+  const jobs = [
+    {
+      date: '2021.07 - 2023.12',
+      title: '軟體開發工程師',
+      company: '格拉墨科技有限公司',
+      details: [
+        { type: 'p', content: '【 前端開發 】' },
+        { type: 'ul', items: [
+          '協作開發兌換商城前台功能',
+          '串接三方遊戲、整合多平台網站',
+          '實現UI設計的活動頁面',
+          '協作規範開發及上版流程，確保產品順利上線',
+          '制定Redmine規範，讓團隊與其他部門更快釐清開發範圍及進度'
+        ] },
+        { type: 'p', content: '【 專案管理 】' },
+        { type: 'ul', items: [
+          '參與跨部門會議進行需求釐清及討論',
+          '協助PM與前端溝通，預估開發時程與人力分配',
+          '控管前端專案進度，分派工作項目'
+        ] },
+      ]
+    },
+    {
+      date: '2017.07 - 2021.03',
+      title: '網管工程師',
+      company: '禮文股份有限公司',
+      details: [
+        { type: 'ul', items: [
+          '負責網站管理及維護',
+          '產品推廣設計 (如：海報、型錄、文宣、網頁設計、基本影片編輯...)',
+          '年度參展規劃 (如：攤位設計、佈展規劃、承包商接洽...)',
+          '處理行政相關作業（如：招標採購、合約製作、公文收發..）',
+          '產品業務推廣，國外廠商溝通協商，市場調查開發潛在客戶'
+        ] }
+      ]
+    },
+    {
+      date: '2016.07 - 2016.08',
+      title: '暑期實習生-軟體工程師',
+      company: '新加坡商鈦坦科技股份有限公司台灣分公司',
+      details: [
+        { type: 'p', content: '協助公司開發內部系統介面設計 - 人資面試管理系統' },
+        { type: 'ul', items: [
+          '提供面試者參與個人線上測驗',
+          '可以填寫相關人格特質測試',
+          '提供HR確認面試者測驗進度及參與回覆狀態'
+        ] },
+        { type: 'p', content: '在團隊中扮演「協調者」的角色，能夠快速釐清需求與問題，聆聽團隊的意見並總結方向，透過Scrum進行分工與討論，互相協助以完成目標。' },
+      ]
+    }
+  ]
+
+  // footer
+  const openLink = (link) => {
+    window.open(link, '_blank')
+  }
+
   return (
     <div className="resume">
       <header className="layout header">
         <p className="typing-text">
           {showText}
+          {currentTextIndex === texts.length && <MdAutorenew className="replay" size={24} onClick={replayTyping} />}
         </p>
         {currentTextIndex === texts.length && <MdSwipeDown size={30} className="swipe" />}
       </header>
@@ -122,7 +190,7 @@ function Resume() {
 
       <section className="skills">
         <h1 className="title">SKILLS</h1>
-        <Grid
+        <Grid2
           container 
           justifyContent="center"
           alignItems="strech" 
@@ -137,18 +205,57 @@ function Resume() {
               cardTitle={item.title}
               onMouseEnter={handleMouseEnter}
             >
-              <ul>
-                {item.tool.map(item => (
-                  <li key={item}>{item}</li>))}
-              </ul>
+              <ol>
+                {item.tool.map(i => (
+                  <li key={i}>{i}</li>))}
+              </ol>
             </MainCard>
           ))}
-        </Grid>
+        </Grid2>
       </section>
-
+      
       <section className="exprience">
         <h1 className="title">JOB EXPERIENCE</h1>
+        <Timeline classes={{ root: "timeline" }}>
+          {jobs.map((item, index) => (
+            <TimelineItem classes={{ root: "item" }} key={item.title}>
+              <TimelineOppositeContent classes={{ root: "time" }}>
+                {item.date}
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot classes={{ root: "dot" }} />
+                <TimelineConnector classes={{ root: "line" }} /> 
+              </TimelineSeparator>
+              <TimelineContent classes={{ root: "content" }}>
+                <h3>{item.title}</h3>
+                <p>《 {item.company} 》</p>
+                <div>
+                  {item.details.map((detail, index) => {
+                    if (detail.type === 'p') {
+                      return <p key={index}>{detail.content}</p>
+                    } 
+                    else if (detail.type === 'ul') {
+                      return (
+                        <ul key={index}>
+                          {detail.items.map((listItem, index) => (
+                            <li key={index}>{listItem}</li>
+                          ))}
+                        </ul>
+                      )
+                    }
+                    return null
+                  })}
+                </div>                
+              </TimelineContent>
+          </TimelineItem>))}
+        </Timeline>
       </section>
+      
+      <footer className="footer">
+        <FaGithubAlt size={24} style={{ marginRight: "20px" }} onClick={() => openLink('https://github.com/WendyTsao')} />
+        <FaLinkedin size={24} onClick={() => openLink('https://www.linkedin.com/in/wendytsao63')} />
+        <p>© copyright 2024 by Wendy</p>
+      </footer>
     </div>
   )
 }

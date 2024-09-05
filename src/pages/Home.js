@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import MainCard from "../components/MainCard"
@@ -17,7 +17,7 @@ function Home() {
       <header className="header">
         <img src={logo} className="logo" alt="logo" />
       </header>
-      <Grid
+      <Grid2
         container 
         justifyContent="center"
         alignItems="strech" 
@@ -33,7 +33,7 @@ function Home() {
             onClick={item.onClick}
           />
         ))}
-      </Grid>
+      </Grid2>
     </div>
   );
 }
