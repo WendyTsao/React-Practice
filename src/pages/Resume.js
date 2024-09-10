@@ -1,13 +1,16 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { Grid2 } from "@mui/material"
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent, TimelineOppositeContent } from "@mui/lab"
-import { MdAutorenew, MdSwipeDown } from "react-icons/md"
-import { FaGithubAlt, FaLinkedin } from "react-icons/fa"
+import { MdSwipeDown, MdReplay } from "react-icons/md"
+import { FaGithubAlt, FaLinkedin, FaHome } from "react-icons/fa"
+import { isMobile } from 'react-device-detect'
+import { useNavigate } from "react-router-dom";
 
 import MainCard from "../components/MainCard"
 import '../assets/styles/Resume.styl'
 
 function Resume() {
+  const navigate = useNavigate()
 
   // 首頁逐字稿區塊
   const texts = [
@@ -83,7 +86,8 @@ function Resume() {
 
   const [direction, setDirection] = useState('')
 
-  const handleMouseEnter = (e) => {
+  const handleMouseEnter = useCallback((e) => {
+    if (isMobile) return
     const rect = e.currentTarget.getBoundingClientRect()
     
     const mouseX = e.clientX
@@ -104,7 +108,7 @@ function Resume() {
       direction = 'bottom'
     }
     setDirection(direction)
-  }
+  }, [])
 
   // 工作經驗區塊
   const jobs = [
@@ -169,7 +173,7 @@ function Resume() {
       <header className="layout header">
         <p className="typing-text">
           {showText}
-          {currentTextIndex === texts.length && <MdAutorenew className="replay" size={24} onClick={replayTyping} />}
+          {currentTextIndex === texts.length && <MdReplay className="replay" size={24} onClick={replayTyping} />}
         </p>
         {currentTextIndex === texts.length && <MdSwipeDown size={30} className="swipe" />}
       </header>
@@ -253,6 +257,7 @@ function Resume() {
       
       <footer className="footer">
         <FaGithubAlt size={24} style={{ marginRight: "20px" }} onClick={() => openLink('https://github.com/WendyTsao')} />
+        <FaHome size={24} style={{ marginRight: "20px" }} onClick={() => navigate("/")} />
         <FaLinkedin size={24} onClick={() => openLink('https://www.linkedin.com/in/wendytsao63')} />
         <p>© copyright 2024 by Wendy</p>
       </footer>
