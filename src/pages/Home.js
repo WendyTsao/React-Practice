@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate()
 
   const menu = [
-    { title: 'PRACTICE', subTitle: 'Learn React through the question bank and document', buttonText: 'Easy try', onClick: () => navigate("/123") },
+    { title: 'PRACTICE', subTitle: 'Learn React through the question bank and document', buttonText: 'Easy try', onClick: () => navigate("/DebounceInput") },
     { title: 'RESUME', subTitle: 'Committed to transforming into a project manager', buttonText: 'Get to know', onClick: () => navigate("/resume") }
   ]
   
