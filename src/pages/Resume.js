@@ -2,15 +2,13 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { Grid2 } from "@mui/material"
 import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnector, TimelineContent, TimelineOppositeContent } from "@mui/lab"
 import { MdSwipeDown, MdReplay } from "react-icons/md"
-import { FaGithubAlt, FaLinkedin, FaHome } from "react-icons/fa"
 import { isMobile } from 'react-device-detect'
-import { useNavigate } from "react-router-dom"
 
 import MainCard from "../components/MainCard"
+import Copyright from "../components/Copyright"
 import '../assets/styles/Resume.styl'
 
 function Resume() {
-  const navigate = useNavigate()
 
   // 首頁逐字稿區塊
   const texts = [
@@ -163,11 +161,6 @@ function Resume() {
     }
   ]
 
-  // footer
-  const openLink = (link) => {
-    window.open(link, '_blank')
-  }
-
   return (
     <div className="resume">
       <header className="layout header">
@@ -255,12 +248,7 @@ function Resume() {
         </Timeline>
       </section>
       
-      <footer className="footer">
-        <FaGithubAlt size={24} style={{ marginRight: "20px" }} onClick={() => openLink('https://github.com/WendyTsao')} />
-        <FaHome size={24} style={{ marginRight: "20px" }} onClick={() => navigate("/")} />
-        <FaLinkedin size={24} onClick={() => openLink('https://www.linkedin.com/in/wendytsao63')} />
-        <p>© copyright 2024 by Wendy</p>
-      </footer>
+      <Copyright />
     </div>
   )
 }

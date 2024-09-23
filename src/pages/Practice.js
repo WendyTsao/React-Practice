@@ -2,6 +2,7 @@ import { Container, Grid2 } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 
 import MainCard from "../components/MainCard"
+
 function Practice() {
   const navigate = useNavigate()
 

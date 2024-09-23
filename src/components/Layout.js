@@ -3,10 +3,15 @@ import { useLocation } from 'react-router-dom'
 import { Outlet } from "react-router-dom"
 import { FaHome } from "react-icons/fa"
 import { isMobile } from 'react-device-detect'
+import { useNavigate } from "react-router-dom"
+
+import Copyright from "../components/Copyright"
 
 import '../assets/styles/Practice.styl'
 
 function Layout() {
+  const navigate = useNavigate()
+
   const routes = [
     { path: "debounce-input", title: "Debounce Input" },
     { path: "todo-list", title: "ToDo List" },
@@ -50,7 +55,7 @@ function Layout() {
             )
           ))}
         </Breadcrumbs>}
-        <h1 className="title">PRACTICE</h1>
+        <h1 className="title" onClick={!isMobile ? () => navigate(-1) : undefined}>PRACTICE</h1>
       </header>
 
       <Box sx={{ display: 'flex' }}>
@@ -75,6 +80,8 @@ function Layout() {
           <Outlet />
         </Box>
       </Box>
+
+      {!isMobile && <Copyright />}
     </div>
   )
 }
