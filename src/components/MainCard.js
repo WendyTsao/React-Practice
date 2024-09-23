@@ -8,7 +8,7 @@ const MainCard = ({cardId, direction, cardTitle, subTitle, buttonText, onClick, 
     <Card id={cardId} classes={{ root: `card ${direction}` }} sx={{ minWidth: 320, bgcolor: '#3f4a61' }} onClick={onClick} onMouseEnter={onMouseEnter}>
       <CardContent classes={{ root: "cardContent" }}>
         <h2 className="cardTitle">{ cardTitle }</h2>
-        <p className="subTitle">{ subTitle }</p>
+        {subTitle && <p className="subTitle">{ subTitle }</p>}
         { children }
       </CardContent>
       {buttonText && <CardActions classes={{ root: "cardActions" }}>

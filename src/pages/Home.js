@@ -1,14 +1,14 @@
-import { Grid2 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Grid2 } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 import MainCard from "../components/MainCard"
-import logo from '../assets/images/logo.svg';
+import logo from '../assets/images/logo.svg'
 
 function Home() {
   const navigate = useNavigate()
 
   const menu = [
-    { title: 'PRACTICE', subTitle: 'Learn React through the question bank and document', buttonText: 'Easy try', onClick: () => navigate("/DebounceInput") },
+    { title: 'PRACTICE', subTitle: 'Learn React through the question bank and document', buttonText: 'Easy try', onClick: () => navigate("/practice") },
     { title: 'RESUME', subTitle: 'Committed to transforming into a project manager', buttonText: 'Get to know', onClick: () => navigate("/resume") }
   ]
   
@@ -35,7 +35,7 @@ function Home() {
         ))}
       </Grid2>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

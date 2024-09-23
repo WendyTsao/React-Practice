@@ -1,13 +1,14 @@
 import { Container, Alert, AlertTitle, FormControl, InputLabel, OutlinedInput, Grid2 } from "@mui/material"
-import { useCallback, useRef } from "react"
+import { useCallback, useRef, useState } from "react"
 import { useImmerReducer } from "use-immer"
 import { FaPlusSquare } from "react-icons/fa"
 
 import List from "../components/List"
-
+import AlertBar from "../components/AlertBar"
 
 function ToDoList() {
   const todoRef = useRef(null)
+  const [alertContent, setAlertContent] = useState("")
 
   const initialTasks = {
     todoList: [
@@ -75,7 +76,7 @@ function ToDoList() {
   const handleAddTask = () => {
     const text = todoRef.current.value
     if (!text) {
-      alert("Please add a todo item.")
+      setAlertContent("Please add a todo item.")
       return
     }
     todoRef.current.value = ""
@@ -96,35 +97,45 @@ function ToDoList() {
 
   // 編輯未完成的內容
   const handleEdit = useCallback(({ task, text, index }) => {
-    handleSave({ task, text, index });
-    dispatch({ type: "EDIT", task, text, index });
+    handleSave({ task, text, index })
+    dispatch({ type: "EDIT", task, text, index })
   }, [handleSave])
 
   function handleSave({ task, text, index }) {
     dispatch({ type: "SAVE", task, text, index })
   }
   // 刪除未完成及已完成清單
-  function handleDelete({task}) {
-    dispatch({ type: "DELETE", task })
+  function handleDelete({task, index}) {
+    dispatch({ type: "DELETE", task, index })
   }
 
   const onChangeTextField = useCallback((task, e, index) => {
-    handleEdit({ task, text: e, index });
-  }, [handleEdit]);
+    handleEdit({ task, text: e, index })
+  }, [handleEdit])
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleAddTask()
+    }
+  }
+
+  const handleCloseAlert = () => {
+    setAlertContent(""); // 關閉 AlertBar
+  }
   // 判斷當有資料時才有背景色
   const todoBgColor = tasks.todoList.length > 0 ? "#E9D3D9" : "transparent"
   const doneBgColor = tasks.doneList.length > 0 ? "#DEECCF" : "transparent"
 
   return (
     <Container sx={{paddingY: "1rem"}} component={"main"}>
+      {alertContent && <AlertBar content={alertContent} onClose={handleCloseAlert} />}
       <p className="time">2024.06.20</p>
       <Alert severity="info">
         <AlertTitle>實作一個 Todo List</AlertTitle>
         <ul>
-        <li>有一個輸入匡可以輸入新的Todo</li>
-          <li>可以編輯、修改每一項Todo</li>
-          <li>分別顯示未做完及做完的Todo清單</li>
+          <li>有一個輸入匡可以輸入新的Todo清單</li>
+          <li>可以編輯、修改、刪除每一項Todo清單</li>
+          <li>分別顯示未完成及已完成的Todo清單</li>
         </ul>
       </Alert>
 
@@ -134,6 +145,7 @@ function ToDoList() {
           id="todo-title"
           inputRef={todoRef}
           endAdornment={<FaPlusSquare size={20} color="#BBE1FA" onClick={handleAddTask} />}
+          onKeyDown={handleKeyDown}
           label="Add a todo item"
         />
       </FormControl>
@@ -161,7 +173,6 @@ function ToDoList() {
           />
         </Grid2>
       </Grid2>
-      
     </Container>
   )
 }

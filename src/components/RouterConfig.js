@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home'
 import Resume from '../pages/Resume'
 import Layout from '../components/Layout'
+import Practice from '../pages/Practice'
 import DebounceInput from '../pages/DebounceInput'
 import ToDoList from '../pages/ToDoList'
 import NotFound from '../pages/NotFound'
@@ -21,11 +22,15 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/DebounceInput",
+        path: "/practice",
+        element: <Practice />
+      },
+      {
+        path: "/debounce-input",
         element: <DebounceInput />
       },
       {
-        path: "/ToDoList",
+        path: "/todo-list",
         element: <ToDoList />
       }
     ]

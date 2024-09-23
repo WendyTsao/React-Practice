@@ -4,7 +4,7 @@ import { Timeline, TimelineItem, TimelineSeparator, TimelineDot, TimelineConnect
 import { MdSwipeDown, MdReplay } from "react-icons/md"
 import { FaGithubAlt, FaLinkedin, FaHome } from "react-icons/fa"
 import { isMobile } from 'react-device-detect'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 
 import MainCard from "../components/MainCard"
 import '../assets/styles/Resume.styl'

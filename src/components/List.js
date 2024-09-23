@@ -9,15 +9,15 @@ import {
   ListItemButton
 } from "@mui/material"
 import { FaRegEdit, FaRegSave, FaRegTrashAlt } from "react-icons/fa"
-import PropTypes from "prop-types"
 import { memo } from "react"
+import PropTypes from "prop-types"
 
 const ToDoList = memo(({title, listBgcolor, tasks, handleToggle, onChangeTextField, handleSave, handleEdit, handleDelete}) => {
 
   return <>
     <Box>
       <Typography variant="h5">{ title }</Typography>
-      <List sx={{width: "100%", bgcolor: listBgcolor, color: "#000"}}>
+      <List sx={{ width: "100%", bgcolor: listBgcolor, color: "#000" }}>
         {tasks.map((task, index) => (
           <ListItem key={task.id} disablePadding>
             <ListItemButton onClick={() => handleToggle({task, index})}>
@@ -25,7 +25,6 @@ const ToDoList = memo(({title, listBgcolor, tasks, handleToggle, onChangeTextFie
                 checked={task.done}
                 color="success"
                 disableRipple
-                onChange={() => handleToggle({task, index})}
               />
               {task.isEdit ? (
                 <TextField
@@ -44,7 +43,7 @@ const ToDoList = memo(({title, listBgcolor, tasks, handleToggle, onChangeTextFie
                 <FaRegEdit size={20} style={{ margin: "10px" }} onClick={() => handleEdit({task, index})}/>
               )
             )}
-            <FaRegTrashAlt size={20} style={{ margin: "20px" }} onClick={() => handleDelete({task})}/>
+            <FaRegTrashAlt size={20} style={{ margin: "20px" }} onClick={() => handleDelete({task, index})}/>
           </ListItem>
         ))}
       </List>

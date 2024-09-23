@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import { Card, CardContent, Button } from "@mui/material"
 
-import '../assets/styles/ErrorLayout.styl';
-import errorImg from '../assets/images/error.png';
+import '../assets/styles/ErrorLayout.styl'
+import errorImg from '../assets/images/error.png'
 
 function NotFound() {
   const navigate = useNavigate()
@@ -20,7 +20,7 @@ function NotFound() {
         </Button>
       </Card>
     </div>
-  );
+  )
 }
 
-export default NotFound;
+export default NotFound

@@ -56,7 +56,8 @@ function DebounceInput() {
 
       <h3>查詢結果：</h3>
       <div className="data">
-        {result ?<pre>
+        {result ? 
+          <pre>
             {JSON.stringify(result, null, 2)}
           </pre> :
           <p>查無資料</p>}
